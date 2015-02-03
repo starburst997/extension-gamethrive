@@ -5,10 +5,10 @@
 extern "C" void notificationOpened( const char* message, const char* additionalData, bool isActive );
 
 @interface GameThriveLib:NSObject
-{
+
 	@property (strong, nonatomic) GameThrive *gameThrive;
 	+ (GameThriveLib *)instance;
-}
+
 @end
 
 @interface NMEAppDelegate : NSObject <UIApplicationDelegate>
@@ -50,15 +50,6 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 		[alertView show];
 		
 		return YES;
-	}
-	
-	- (id)init {
-		self = [super init];
-		if (self) {
-			if (!instance)
-				instance = self;
-		}
-		return self;
 	}
 	
 	+ (GameThriveLib *)instance{
