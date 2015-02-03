@@ -75,11 +75,11 @@ class GameThrive
 	// When a notification has benn received
 	public function notificationOpened( message:String, additionalData:String, isActive:Bool ):Void
 	{
+		trace( "MESSAGE", message, "DATA", additionalData, "ACTIVE", isActive );
+		
 		if ( handler != null )
 		{
 			// Take the data and convert to Dynamic
-			trace( "MESSAGE", message, "DATA", additionalData, "ACTIVE", isActive );
-			
 			try
 			{
 				var data:Dynamic = Json.parse( additionalData );

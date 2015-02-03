@@ -94,7 +94,7 @@ public class GameThriveLib extends Extension implements NotificationOpenedHandle
 		Log.d("GameThrive", "notificationOpened");
 		
 		__message = message;
-		__additionalData = additionalData.toString();
+		__additionalData = additionalData == null ? "" : additionalData.toString();
 		__isActive = isActive;
 		
 		Extension.callbackHandler.post (new Runnable()

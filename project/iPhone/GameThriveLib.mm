@@ -1,99 +1,88 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "AdColony/AdColony.h"
+#import "GameThrive/GameThrive.h"
 
-extern "C" void onAdColonyStarted();
-extern "C" void onAdColonyAdAttemptFinished( bool shown, bool notShown, bool skipped, bool canceled, bool noFill );
-extern "C" void onAdColonyAdAvailabilityChange( bool available, const char* name );
-extern "C" void onAdColonyV4VCReward( bool success, const char* name, float amount );
+extern "C" void notificationOpened( const char* message, const char* additionalData, bool isActive );
 
-@interface AdColonyLib:NSObject <AdColonyDelegate, AdColonyAdDelegate>
+@interface GameThriveLib:NSObject
 {
-	
+	@property (strong, nonatomic) GameThrive *gameThrive;
+	+ (GameThriveLib *)instance;
 }
 @end
 
-@implementation AdColonyLib
+@interface NMEAppDelegate : NSObject <UIApplicationDelegate>
+	
+@end
 
-#pragma mark -
-#pragma mark AdColony V4VC
+@implementation NMEAppDelegate (GameThriveLib)
+	
+@end
 
-// Callback activated when a V4VC currency reward succeeds or fails
-// This implementation is designed for client-side virtual currency without a server
-// It uses NSUserDefaults for persistent client-side storage of the currency balance
-// For applications with a server, contact the server to retrieve an updated currency balance
-// On success, posts an NSNotification so the rest of the app can update the UI
-// On failure, posts an NSNotification so the rest of the app can disable V4VC UI elements
-- ( void ) onAdColonyV4VCReward:(BOOL)success currencyName:(NSString*)currencyName currencyAmount:(int)amount inZone:(NSString*)zoneID 
-{
-	onAdColonyV4VCReward( success, [currencyName UTF8String], amount * 1.0f );
-}
+@implementation GameThriveLib
 
-#pragma mark -
-#pragma mark AdColony ad fill
+	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	{
+		self.gameThrive = [[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+			
+			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
+			
+			NSString * dataStr = @"";
+			if (additionalData) 
+			{
+				dataStr = [NSString stringWithFormat:@"%@", additionalData];
+			}
+			
+			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
+		}];
+		return YES;
+	}
+	
+	-(BOOL)showDialog:(NSString *)title message:(NSString *)message
+	{
+		
+		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title
+														    message:message
+														   delegate:self
+												  cancelButtonTitle:@"Close"
+												  otherButtonTitles:nil, nil];
+		
+		[alertView show];
+		
+		return YES;
+	}
+	
+	- (id)init {
+		self = [super init];
+		if (self) {
+			if (!instance)
+				instance = self;
+		}
+		return self;
+	}
+	
+	+ (GameThriveLib *)instance{
+		static GameThriveLib *instance;
 
-- ( void ) onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString*) zoneID 
-{
-	onAdColonyAdAvailabilityChange( available, [zoneID UTF8String] );
-}
+		@synchronized(self){
+			if (!instance)
+				instance = [[GameThriveLib alloc] init];
 
-#pragma mark -
-#pragma mark AdColonyAdDelegate
-
-// Is called when AdColony has taken control of the device screen and is about to begin showing an ad
-// Apps should implement app-specific code such as pausing a game and turning off app music
-- ( void ) onAdColonyAdStartedInZone:( NSString * )zoneID 
-{
-	onAdColonyStarted();
-}
-
-// Is called when AdColony has finished trying to show an ad, either successfully or unsuccessfully
-// If shown == YES, an ad was displayed and apps should implement app-specific code such as unpausing a game and restarting app music
-- ( void ) onAdColonyAdAttemptFinished:(BOOL)shown inZone:( NSString * )zoneID 
-{
-	onAdColonyAdAttemptFinished( shown, !shown, false, false, false );
-}
+			return instance;
+		}
+	}
 
 @end
 
-namespace adcolony 
+namespace gamethrive 
 {
-	NSString *_app;
-	NSString *_zone;
-	AdColonyLib *_instance;
-	
-	void Configure( const char* app, const char* zone1, const char* zone2, const char* zone3, const char* zone4 )
+	void Configure()
 	{
-		_app = [[NSString alloc] initWithUTF8String:app];
-		_zone = [[NSString alloc] initWithUTF8String:zone1];
 		
-		NSMutableArray * zones = [[NSMutableArray alloc] initWithCapacity: 4];
-		[zones addObject: _zone];
-		if ( zone2 != 0 ) [zones addObject: [[NSString alloc] initWithUTF8String:zone2]];
-		if ( zone3 != 0 ) [zones addObject: [[NSString alloc] initWithUTF8String:zone3]];
-		if ( zone4 != 0 ) [zones addObject: [[NSString alloc] initWithUTF8String:zone4]];
-		
-		_instance = [AdColonyLib alloc];
-		[AdColony configureWithAppID:_app zoneIDs:zones delegate:_instance logging:YES];
 	}
 	
-	void ShowAd( const char* id )
+	void ShowDialog( const char* title, const char* message )
 	{
-		if ( id != 0 )
-		{
-			_zone = [[NSString alloc] initWithUTF8String:id];
-		}
-		
-		[AdColony playVideoAdForZone:_zone withDelegate:_instance];
-	}
-	
-	void ShowV4VCAd( const char* id )
-	{
-		if ( id != 0 )
-		{
-			_zone = [[NSString alloc] initWithUTF8String:id];
-		}
-		
-		[AdColony playVideoAdForZone:_zone withDelegate:_instance withV4VCPrePopup:NO andV4VCPostPopup:NO];
+		[[GameThriveLib instance] showDialog: [[NSString alloc] initWithUTF8String:title] message:[[NSString alloc] initWithUTF8String:message]];
 	}
 }
