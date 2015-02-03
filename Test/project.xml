@@ -24,6 +24,7 @@
 	<haxeflag name="-dce full" /> -->
 	
 	<!-- Native Extensions -->
-	<template path="templates" />
+	<template path="templates/default" unless="amazon" />
+	<template path="templates/amazon" if="amazon" />
 	
 </project>

@@ -39,9 +39,9 @@
 	<key>UISupportedInterfaceOrientations</key>
 	::IOS_APP_ORIENTATION::::end::
 	
-	<!-- GameTrive -->
+	<!-- GameThrive -->
 	<key>GameThrive_APPID</key>
-	<string>XXXXXXXXXXXXXXX</string>
+	<string>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</string>
 	
 </dict>
 </plist>
