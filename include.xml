@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension>
+	
+	<section if="android">
+		<ndll name="gamethrive" />
+		<!--<template path="dependencies/android/AndroidManifest.xml" rename="AndroidManifest.xml" />-->
+		<dependency name="gamethrive" path="dependencies/android" />
+		<java path="dependencies/android/libs/GameThriveSDK.jar" />
+		<java path="dependencies/android/libs/google-play-services.jar" />
+		<java path="dependencies/android/libs/android-support-v4.jar" />
+		<java path="project/android" />
+		<android extension="gamethrive.GameThriveLib" />
+	</section>
+	
+	<section if="ios">
+		<ndll name="gamethrive" />
+		<dependency name="dependencies/ios/GameThrive.a" />
+		<template path="dependencies/ios/GameThrive.a" rename="lib/arm64/GameThrive.a" />
+		<template path="dependencies/ios/GameThrive.a" rename="lib/armv7/GameThrive.a" />
+		<template path="dependencies/ios/GameThrive.a" rename="lib/i386/GameThrive.a" />
+		<template path="dependencies/ios/GameThrive.a" rename="lib/x86_64/GameThrive.a" />
+	</section>
+</extension>
