@@ -27,4 +27,6 @@
 	<template path="templates/default" unless="amazon" />
 	<template path="templates/amazon" if="amazon" />
 	
+	<assets path="assets/api_key.txt" rename="api_key.txt" if="android amazon" />
+	
 </project>
