@@ -3,6 +3,8 @@ gamethrive-openfl
 
 GameThrive (https://github.com/GameThrive) extension for OpenFL (iOS / Android)
 
+iOS WIP !
+
 To compile ndlls:
 
     cd project
