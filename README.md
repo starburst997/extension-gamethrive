@@ -13,7 +13,7 @@ To compile ndlls:
 
 Add the extension to haxelib:
 
-    haxelib dev gamethrive-openfl PATH_TO_THE_EXTENSION_ROOT
+    haxelib dev extension-gamethrive PATH_TO_THE_EXTENSION_ROOT
 
 Usage:
 
