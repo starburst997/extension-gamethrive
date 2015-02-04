@@ -5,8 +5,8 @@
   "tags": ["gamethrive", "lime", "openfl", "extension", "ios", "android"],
   "description": "GameThrive extension for Lime / OpenFL (iOS / Android)",
   "version": "1.0.0",
-  "releasenote": "",
-  "contributors": [""],
+  "releasenote": "Initial commit",
+  "contributors": ["failsafegames"],
   "dependencies": {
 
   }
