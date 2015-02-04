@@ -4,30 +4,6 @@
 
 extern "C" void notificationOpened( const char* message, const char* additionalData, bool isActive );
 
-@interface NSDictionary (BVJSONString)
-
--(NSString*) bv_jsonStringWithPrettyPrint:(BOOL) prettyPrint;
-
-@end
-
-@implementation NSDictionary (BVJSONString)
-
--(NSString*) bv_jsonStringWithPrettyPrint:(BOOL) prettyPrint {
-	NSError *error;
-	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
-													   options:(NSJSONWritingOptions)    (prettyPrint ? NSJSONWritingPrettyPrinted : 0)
-														 error:&error];
-	
-	if (! jsonData) {
-		NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
-		return @"{\"title\":\"Title 1\"}";
-	} else {
-		return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-	}
-}
-
-@end
-
 @interface GameThriveLib:NSObject
 
 	+ (GameThriveLib *)instance;
@@ -53,7 +29,17 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 			NSString * dataStr = @"{\"title\":\"Title 2\"}";
 			if (additionalData)
 			{
-				dataStr = [additionalData bv_jsonStringWithPrettyPrint:false];
+				NSError *error;
+				NSData *jsonData = [NSJSONSerialization dataWithJSONObject:additionalData
+																   options:0//(NSJSONWritingOptions)    (prettyPrint ? NSJSONWritingPrettyPrinted : 0)
+																	 error:&error];
+				
+				if (! jsonData) {
+					NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
+					dataStr = @"{\"title\":\"Title 1\"}";
+				} else {
+					dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+				}
 			}
 			
 			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
