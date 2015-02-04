@@ -23,6 +23,8 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
+		NSLog(@"APP LAUNCHED");
+		
 		self.gameThrive = [[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
@@ -69,7 +71,7 @@ namespace gamethrive
 {
 	void Configure()
 	{
-		
+		NSLog(@"CONFIGURE CALLED");
 	}
 	
 	void ShowDialog( const char* title, const char* message )
