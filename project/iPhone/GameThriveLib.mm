@@ -16,10 +16,6 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 @end
 
 @implementation NMEAppDelegate (GameThriveLib)
-	
-@end
-
-@implementation GameThriveLib
 
 	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
@@ -39,6 +35,10 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 		}];
 		return YES;
 	}
+	
+@end
+
+@implementation GameThriveLib
 	
 	-(BOOL)showDialog:(NSString *)title message:(NSString *)message
 	{
