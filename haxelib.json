@@ -2,7 +2,7 @@
   "name": "extension-gamethrive",
   "url": "https://github.com/starburst997/extension-gamethrive",
   "license": "MIT",
-  "tags": ["gamethrive", "lime", "openfl", "extension"],
+  "tags": ["gamethrive", "lime", "openfl", "extension", "ios", "android"],
   "description": "GameThrive extension for Lime / OpenFL (iOS / Android)",
   "version": "1.0.0",
   "releasenote": "",
