@@ -37,10 +37,12 @@ class GameThrive
 	{
 		if ( _instance == null ) _instance = new GameThrive();
 		
+trace("configure");
 		if ( __configure != null ) 
 		{
 			_instance.handler = handler;
-			
+		
+trace("test");	
 			#if android
 			__configure( _instance, appID, projectNum );
 			#elseif ios
@@ -72,7 +74,7 @@ class GameThrive
 		#end
 	}
 	
-	// When a notification has benn received
+	// When a notification has been received
 	public function notificationOpened( message:String, additionalData:String, isActive:Bool ):Void
 	{
 		trace( "MESSAGE", message, "DATA", additionalData, "ACTIVE", isActive );
@@ -87,7 +89,7 @@ class GameThrive
 			}
 			catch ( e:Dynamic )
 			{
-				handler.notificationOpened( message, null, isActive );
+				handler.notificationOpened( message, {"title":"Title 3"}, isActive );
 			}
 		}
 	}
