@@ -1,2 +1,2 @@
 call build.bat
-haxelib dev gamethrive-openfl %~dp0
+haxelib dev extension-gamethrive %~dp0
