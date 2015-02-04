@@ -37,12 +37,10 @@ class GameThrive
 	{
 		if ( _instance == null ) _instance = new GameThrive();
 		
-trace("configure");
 		if ( __configure != null ) 
 		{
 			_instance.handler = handler;
-		
-trace("test");	
+			
 			#if android
 			__configure( _instance, appID, projectNum );
 			#elseif ios
@@ -85,6 +83,9 @@ trace("test");
 			try
 			{
 				var data:Dynamic = Json.parse( additionalData );
+				if ( data == null ) data = {};
+				if ( data.title == null ) data.title = "Title 4";
+				
 				handler.notificationOpened( message, data, isActive );
 			}
 			catch ( e:Dynamic )
