@@ -12,27 +12,31 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 @end
 
 @interface NMEAppDelegate : NSObject <UIApplicationDelegate>
-	
+
+
+
 @end
 
 @implementation NMEAppDelegate (GameThriveLib)
 
-	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
-		NSLog(@"APP LAUNCHED");
+		NSLog(@"APP LAUNCHED...");
 		
-		[GameThriveLib instance].gameThrive = [[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+		[[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
 			NSString * dataStr = @"";
-			if (additionalData) 
+			if (additionalData)
 			{
 				dataStr = [NSString stringWithFormat:@"%@", additionalData];
 			}
 			
 			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
 		}];
+		
+		
 		return YES;
 	}
 	
@@ -53,7 +57,27 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 		
 		return YES;
 	}
-	
+
+	-(BOOL)configure
+	{
+		NSLog(@"CONFIGURE 2");
+		
+		/*self.gameThrive = [[GameThrive alloc] initWithLaunchOptions:nil handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+			
+			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
+			
+			NSString * dataStr = @"";
+			if (additionalData)
+			{
+				dataStr = [NSString stringWithFormat:@"%@", additionalData];
+			}
+			
+			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
+		}];*/
+		
+		return YES;
+	}
+
 	+ (GameThriveLib *)instance{
 		static GameThriveLib *instance;
 
@@ -72,6 +96,8 @@ namespace gamethrive
 	void Configure()
 	{
 		NSLog(@"CONFIGURE CALLED");
+		
+		[[GameThriveLib instance] configure];
 	}
 	
 	void ShowDialog( const char* title, const char* message )
