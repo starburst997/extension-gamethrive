@@ -1,7 +1,7 @@
-gamethrive-openfl
+extension-gamethrive
 ========================
 
-GameThrive (https://github.com/GameThrive) extension for OpenFL (iOS / Android)
+GameThrive (https://github.com/GameThrive) extension for Lime / OpenFL (iOS / Android)
 
 iOS WIP !
 
