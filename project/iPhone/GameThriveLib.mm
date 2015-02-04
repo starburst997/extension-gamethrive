@@ -21,7 +21,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	{
 		NSLog(@"APP LAUNCHED");
 		
-		self.gameThrive = [[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+		[[GameThriveLib instance]].gameThrive = [[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
