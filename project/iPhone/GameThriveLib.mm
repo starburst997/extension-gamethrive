@@ -30,14 +30,13 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 @interface GameThriveLib:NSObject
 
-	@property (strong, nonatomic) GameThrive *gameThrive;
 	+ (GameThriveLib *)instance;
 
 @end
 
 @interface NMEAppDelegate : NSObject <UIApplicationDelegate>
 
-
+	@property (strong, nonatomic) GameThrive *gameThrive;
 
 @end
 
@@ -47,7 +46,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	{
 		NSLog(@"APP LAUNCHED...");
 		
-		[[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+		self.gameThrive = [[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
@@ -59,7 +58,6 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 			
 			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
 		}];
-		
 		
 		return YES;
 	}
