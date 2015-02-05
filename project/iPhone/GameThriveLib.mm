@@ -8,6 +8,8 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 	+ (GameThriveLib *)instance;
 
+	@property (strong, nonatomic) GameThrive *gameThrive;
+
 @end
 
 @interface NMEAppDelegate : NSObject <UIApplicationDelegate>
@@ -22,7 +24,8 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	{
 		NSLog(@"APP LAUNCHED...");
 		
-		self.gameThrive = [[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+		// self.gameThrive = 
+		/*[[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
@@ -43,7 +46,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 			}
 			
 			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
-		}];
+		}];*/
 		
 		return YES;
 	}
@@ -68,6 +71,30 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	
 	-(BOOL)configure
 	{
+		NSLog(@"game thrive?? ");
+		/*self.gameThrive = */[[GameThrive alloc] initWithLaunchOptions:nil handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+			
+			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
+			
+			NSString * dataStr = @"{\"title\":\"Title 2\"}";
+			if (additionalData)
+			{
+				NSError *error;
+				NSData *jsonData = [NSJSONSerialization dataWithJSONObject:additionalData
+																   options:0//(NSJSONWritingOptions)    (prettyPrint ? NSJSONWritingPrettyPrinted : 0)
+																	 error:&error];
+				
+				if (! jsonData) {
+					NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
+					dataStr = @"{\"title\":\"Title 1\"}";
+				} else {
+					dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+				}
+			}
+			
+			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
+		}];
+
 		return YES;
 	}
 	
