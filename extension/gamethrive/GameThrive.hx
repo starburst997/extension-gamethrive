@@ -90,7 +90,7 @@ class GameThrive
 			}
 			catch ( e:Dynamic )
 			{
-				handler.notificationOpened( message, {"title":"Title 3"}, isActive );
+				handler.notificationOpened( message, {title:"Title 3"}, isActive );
 			}
 		}
 	}

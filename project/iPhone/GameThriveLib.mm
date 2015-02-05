@@ -65,15 +65,15 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 		
 		return YES;
 	}
-
+	
 	-(BOOL)configure
 	{
 		return YES;
 	}
-
+	
 	+ (GameThriveLib *)instance{
 		static GameThriveLib *instance;
-
+		
 		@synchronized(self){
 			if (!instance)
 				instance = [[GameThriveLib alloc] init];
