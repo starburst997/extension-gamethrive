@@ -65,7 +65,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	{
 		NMEAppDelegate *app = [[UIApplication sharedApplication] delegate];
 		
-		/*self.gameThrive = */[[GameThrive alloc] initWithLaunchOptions:app.launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+		/*self.gameThrive = */[[GameThrive alloc] initWithLaunchOptions:/*app.launchOptions*/ nil handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
@@ -110,7 +110,7 @@ namespace gamethrive
 	{
 		NSLog(@"CONFIGURE CALLED");
 		
-		[[GameThriveLib instance] configure];
+		//[[GameThriveLib instance] configure];
 	}
 	
 	void ShowDialog( const char* title, const char* message )
