@@ -6,7 +6,9 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 @interface GameThriveLib:NSObject
 
-	+ (GameThriveLib *)instance;
+	+ (GameThriveLib *) instance;
+	+ (NSDictionary *) launchOptions;
+	+ (void) setLaunchOptions:(NSDictionary *)value;
 
 	@property (strong, nonatomic) GameThrive *gameThrive;
 
@@ -17,36 +19,38 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	
 
 @end
+
 @interface NMEAppDelegate (GameThriveLib)
 
-	
-	
+
+
 @end
 
 @implementation NMEAppDelegate (GameThriveLib)
-
-	// Changing to didFinishLaunchingWithOptions will make the app crash
+	
+	// Can't get didFinishLaunchingWithOptions, this will do...
 	-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
-		NSLog(@"This is never called...");
+		NSLog(@"App will launched ...");
 		
+		GameThriveLib.launchOptions = launchOptions;
+
 		return YES;
 	}
 	
 @end
 
 @implementation GameThriveLib
-	
-	- (void)applicationDidBecomeActive:(UIApplication *)application	{
-	    NSLog(@"applicationDidBecomeActive?");
-	}
-	
-	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-	{
-		NSLog(@"APP LAUNCHED?");
-		return YES;
-	}
-	
+
+	@synthesize gameThrive;
+
+	// Keep LaunchOptions
+	static NSDictionary * launchOptions = nil;
+
+	+ (NSDictionary *) launchOptions { return launchOptions; }
+	+ (void) setLaunchOptions:(NSDictionary *)value { launchOptions = value; }
+
+	// Show a native dialog
 	-(BOOL)showDialog:(NSString *)title message:(NSString *)message
 	{
 		
@@ -60,12 +64,13 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 		
 		return YES;
 	}
-	
+
+	// Start GameThrive
 	-(BOOL)configure
 	{
-		NMEAppDelegate *app = [[UIApplication sharedApplication] delegate];
+		NSLog(@"LAUNCH %@", GameThriveLib.launchOptions);
 		
-		/*self.gameThrive = */[[GameThrive alloc] initWithLaunchOptions:/*app.launchOptions*/ nil handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+		self.gameThrive = [[GameThrive alloc] initWithLaunchOptions:GameThriveLib.launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
@@ -90,7 +95,8 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 		return YES;
 	}
-	
+
+	// Singleton
 	+ (GameThriveLib *)instance{
 		static GameThriveLib *instance;
 		
@@ -110,7 +116,7 @@ namespace gamethrive
 	{
 		NSLog(@"CONFIGURE CALLED");
 		
-		//[[GameThriveLib instance] configure];
+		[[GameThriveLib instance] configure];
 	}
 	
 	void ShowDialog( const char* title, const char* message )
