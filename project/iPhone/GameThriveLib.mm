@@ -14,13 +14,18 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 @interface NMEAppDelegate : NSObject <UIApplicationDelegate>
 
-	@property (strong, nonatomic) GameThrive *gameThrive;
+	
 
+@end
+@interface NMEAppDelegate (GameThriveLib)
+
+	@property (strong, nonatomic) GameThrive *gameThrive;
+	
 @end
 
 @implementation NMEAppDelegate (GameThriveLib)
 
-	-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
 		NSLog(@"APP LAUNCHED...");
 		
@@ -54,6 +59,16 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 @end
 
 @implementation GameThriveLib
+	
+	- (void)applicationDidBecomeActive:(UIApplication *)application	{
+	    NSLog(@"applicationDidBecomeActive");
+	}
+	
+	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	{
+		NSLog(@"APP LAUNCHED 2...");
+		
+	}
 	
 	-(BOOL)showDialog:(NSString *)title message:(NSString *)message
 	{
