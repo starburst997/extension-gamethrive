@@ -45,6 +45,11 @@ class Main extends Sprite implements IGameThrive
 	
 	public function notificationOpened( message:String, additionalData:Dynamic, isActive:Bool ):Void
 	{
+		if ( additionalData.title == "" )
+		{
+			additionalData.title = "Default Title";
+		}
+	
 		t.text += "\n" + message + "\nTitle:" + additionalData.title + "\n" + isActive;
 		
 		GameThrive.showDialog( additionalData.title, message );

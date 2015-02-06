@@ -84,13 +84,13 @@ class GameThrive
 			{
 				var data:Dynamic = Json.parse( additionalData );
 				if ( data == null ) data = {};
-				if ( data.title == null ) data.title = "Title 4";
+				if ( data.title == null ) data.title = "";
 				
 				handler.notificationOpened( message, data, isActive );
 			}
 			catch ( e:Dynamic )
 			{
-				handler.notificationOpened( message, {title:"Title 3"}, isActive );
+				handler.notificationOpened( message, {title:""}, isActive );
 			}
 		}
 	}

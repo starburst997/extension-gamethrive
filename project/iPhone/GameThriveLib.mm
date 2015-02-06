@@ -74,7 +74,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
-			NSString * dataStr = @"{\"title\":\"Title 2\"}";
+			NSString * dataStr = @"{\"title\":\"\"}";
 			if (additionalData)
 			{
 				NSError *error;
@@ -84,7 +84,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 				
 				if (! jsonData) {
 					NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
-					dataStr = @"{\"title\":\"Title 1\"}";
+					dataStr = @"{\"title\":\"\"}";
 				} else {
 					dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 				}
