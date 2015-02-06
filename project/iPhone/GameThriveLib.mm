@@ -19,7 +19,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 @end
 @interface NMEAppDelegate (GameThriveLib)
 
-	//@property (strong, nonatomic) GameThrive *gameThrive;
+	
 	
 @end
 
@@ -86,8 +86,10 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	
 	-(BOOL)configure
 	{
+		NMEAppDelegate *app = [[UIApplication sharedApplication] delegate];
+		
 		NSLog(@"game thrive?? ");
-		/*self.gameThrive = */[[GameThrive alloc] initWithLaunchOptions:nil handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+		/*self.gameThrive = */[[GameThrive alloc] initWithLaunchOptions:app.launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
 			
