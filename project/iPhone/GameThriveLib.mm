@@ -25,33 +25,10 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 @implementation NMEAppDelegate (GameThriveLib)
 
+	// Changing to didFinishLaunchingWithOptions will make the app crash
 	-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
-		NSLog(@"APP LAUNCHED...");
-		
-		// self.gameThrive = 
-		/*[[GameThrive alloc] initWithLaunchOptions:launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
-			
-			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
-			
-			NSString * dataStr = @"{\"title\":\"Title 2\"}";
-			if (additionalData)
-			{
-				NSError *error;
-				NSData *jsonData = [NSJSONSerialization dataWithJSONObject:additionalData
-																   options:0//(NSJSONWritingOptions)    (prettyPrint ? NSJSONWritingPrettyPrinted : 0)
-																	 error:&error];
-				
-				if (! jsonData) {
-					NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
-					dataStr = @"{\"title\":\"Title 1\"}";
-				} else {
-					dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-				}
-			}
-			
-			notificationOpened( [message UTF8String], [dataStr UTF8String], isActive );
-		}];*/
+		NSLog(@"This is never called...");
 		
 		return YES;
 	}
@@ -61,12 +38,12 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 @implementation GameThriveLib
 	
 	- (void)applicationDidBecomeActive:(UIApplication *)application	{
-	    NSLog(@"applicationDidBecomeActive");
+	    NSLog(@"applicationDidBecomeActive?");
 	}
 	
 	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
-		NSLog(@"APP LAUNCHED 2...");
+		NSLog(@"APP LAUNCHED?");
 		return YES;
 	}
 	
@@ -88,7 +65,6 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	{
 		NMEAppDelegate *app = [[UIApplication sharedApplication] delegate];
 		
-		NSLog(@"game thrive?? ");
 		/*self.gameThrive = */[[GameThrive alloc] initWithLaunchOptions:app.launchOptions handleNotification:^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
 			
 			NSLog(@"APP LOG ADDITIONALDATA: %@", additionalData);
