@@ -25,7 +25,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 
 @implementation NMEAppDelegate (GameThriveLib)
 
-	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+	-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
 		NSLog(@"APP LAUNCHED...");
 		
