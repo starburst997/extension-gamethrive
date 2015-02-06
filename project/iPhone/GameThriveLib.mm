@@ -19,7 +19,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 @end
 @interface NMEAppDelegate (GameThriveLib)
 
-	@property (strong, nonatomic) GameThrive *gameThrive;
+	//@property (strong, nonatomic) GameThrive *gameThrive;
 	
 @end
 
