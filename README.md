@@ -3,8 +3,6 @@ extension-gamethrive
 
 GameThrive (https://github.com/GameThrive) extension for Lime / OpenFL (iOS / Android)
 
-iOS WIP !
-
 To compile ndlls:
 
     cd project
