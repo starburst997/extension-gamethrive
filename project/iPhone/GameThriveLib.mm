@@ -67,7 +67,7 @@ extern "C" void notificationOpened( const char* message, const char* additionalD
 	-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	{
 		NSLog(@"APP LAUNCHED 2...");
-		
+		return YES;
 	}
 	
 	-(BOOL)showDialog:(NSString *)title message:(NSString *)message
