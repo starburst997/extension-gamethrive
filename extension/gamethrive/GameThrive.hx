@@ -32,6 +32,11 @@ class GameThrive
 	// Callback
 	private var handler:IGameThrive = null;
 	
+	public function new()
+	{
+		
+	}
+	
 	// Configure
     public static function configure( handler:IGameThrive, appID:String = "", projectNum:String = "" ):Void 
 	{
