@@ -28,7 +28,7 @@
 		
 		<!-- GameThrive -->
 		<meta-data android:name="com.google.android.gms.version"
-			android:value="6587000"/>
+			android:value="7895000"/>
 		
 		<activity android:name="com.gamethrive.NotificationOpenedActivity"/>
         <receiver
